@@ -1,4 +1,4 @@
-ALTER DATABASE "EmployeeSQL5" SET datestyle TO "ISO, MDY";
+ALTER DATABASE "EmployeeSQL" SET datestyle TO "ISO, MDY";
 
 CREATE TABLE "titles" (
     "title_id" varchar(10)   NOT NULL,

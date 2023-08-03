@@ -1,28 +1,33 @@
-----1
-select E.emp_no, e.last_name, E.first_name, E.sex, S.salary
+---1
+select E.emp_no, E.last_name, E.first_name, E.sex, S.salary
 FROM employees as E
 INNER JOIN salaries as S ON E.emp_no=S.emp_no;
 
-----2 (create view to test it)
-CREATE VIEW Hires_1986 AS
+----2 
 select first_name, last_name, hire_date 
 FROM employees 
 where date_part('year',hire_date) = 1986;
 Select *
 From Hires_1986;
 
-----3: manager of every department along with department number, department name,
------employee number, last name and first name
-dept_manager as DM : DM.dept_no, DM.emp_no, E.last_name, E.first_name
-Inner join employees as E on DM.emp_no = E.emp_no
-another join on dept_manager and departments
+----3: 
 
-----4 Dept No for each employee along with that employee's number, last name, 
------first name, department name
-From departments - D.dept_no and D.dept_name 
-from dept_emp (needsjoin on DE.dept_no and DE.emp_no)
-From employees - E.emp_no, E.last_name, E.first_name, ;
+SELECT DM.dept_no, D.dept_name, DM.emp_no as "Manager Emp_No", E.last_name as "Manager Last Name", E.first_name as "Manager First Name"
+FROM dept_manager AS DM
+left join departments as D
+	on DM.dept_no = D.dept_no 
+left join employees as E
+	on DM.emp_no = E.emp_no 
+ORDER BY dept_no ASC;
 
+
+----4 
+SELECT E.emp_no as "Employee Number", E.first_name as "Employee First Name", E.last_name as "Employee Last Name", DE.dept_no as "Department Number", D.dept_name as "Department Name"
+FROM Employees as E
+left Join (dept_emp as DE
+		   left join departments as D
+		   			ON D.dept_no = DE.dept_no)
+			ON E.emp_no = DE.emp_no;
 
 ----5 
 select first_name, last_name, sex 
@@ -34,17 +39,19 @@ select E.emp_no, E.last_name, E.first_name
 from Employees as E
 Join dept_emp as DE
 ON (E.emp_no = DE.emp_no)
-where DE.dept_no = 'd007' ;
+where DE.dept_no = 'd007';
 
 
----7: every employee in sales and development, including: 
-----employee number, last name, first name, department name
-select E.emp_no, E.last_name, E.first_name, D.dept_name
-FROM employees as E
-WHERE 
-	(select DE.emp_no, DE.dept_no, D.dept_name
-	FROM dept_emp AS DE
-	join departments AS D on DE.dept_no=D.dept_no);
+---7: 
+SELECT E.emp_no as "Employee Number", E.last_name as "Employee Last Name", E.first_name as "Employee First Name", D.dept_name as "Department Name"
+FROM Employees as E
+left Join (dept_emp as DE
+		   left join departments as D
+		   			ON D.dept_no = DE.dept_no)
+			ON E.emp_no = DE.emp_no
+where DE.dept_no = 'd007' 
+or DE.dept_no = 'd005'
+ORDER BY "Department Name" ASC;
 
 -- 8: 
 SELECT last_name, 
