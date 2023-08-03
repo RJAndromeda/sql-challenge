@@ -1,10 +1,14 @@
 # sql-challenge
 
 This repo for Challenge 9, SQL, includes the following:
-ERD png file, a screen shot of the Entity Relationship Diagram, designed with https://www.quickdatabasediagrams.com/, and whose exported code is the basis of the schemata.
-EmployeeSQL_TableSchemata, the sql source file with the design and execution of the table schema for each of the six tables, and import of the csv data for analysis.
-EmployeeSQL_Analysis sql source file with the analysis results in answer to the eight questions.
-
+In EMPLOYEE OUTPUTS:
+- ERD png file: a screen shot of the Entity Relationship Diagram, designed with https://www.quickdatabasediagrams.com/, and whose exported code is the basis of the schemata.
+- EmployeeSQL_TableSchemata, the sql source file with the design and execution of the table schema for each of the six tables, and import of the csv data for analysis.
+- EmployeeSQL_Analysis sql source file with the analysis results in answer to the eight questions.
+In RESOURCES
+- the CSV files (for completeness)
+- Git ignore & this README file.
+- 
 
 *ERD & Schemata Discussion:
 The need for a composite key was considered for two tables, dept_emp and dept_manager, but I decided in the negative, since dept_emp appears to function more as  a bridging/junction table, comprising of two foreign keys. 
